@@ -18,6 +18,7 @@ main/
 |-- embeddings/
 |-- normalised_embeddings/
 |-- scratch/
+|-- density_scores/
 |-- final/
 ```
 
@@ -37,7 +38,12 @@ python create_normalised_embeddings.py --input_folder embeddings --output_folder
 
 Then run the main script. This will produce a new jsonlines file identical to the original we started with except that it has an extra field called `density_probabiliy`. You will have to at least adjust the `kernel_bandwidth` here.  
 
+
+TODO: 
+* Does not work
+* Batching is weird
+* Not merged with jsonlines file
 ```
-python create_density_scores.py --input_folder ../NCC_plus_scandi/embeddings --output_folder corpus/density_scores --kernel_bandwidth 0.035 --sketch_reps 1000 --sketch_range 20000
+python create_density_scores.py --input_folder normalised_embeddings --output_folder density_scores --kernel_bandwidth 0.035 --sketch_reps 1000 --sketch_range 20000
 ```
 
