@@ -57,13 +57,21 @@ class L2Hash:
         h /= self.r
         return np.floor(h)
 
-def print_stats(scores, num_bins=10):
+def print_stats(filepath, num_bins=10, weight_scale_factor=0.01):
+    scores = np.memmap(
+        filepath,
+        dtype="float32",
+        mode="r",
+    )
+    scores = scores * weight_scale_factor
     counts, bins = np.histogram(scores, bins=num_bins, range=(0, 1))
     total = counts.sum()
     print("\nProbability Distribution Bar Chart:")
     for count, bin_edge in zip(counts, bins):
         bin_width = 1 / num_bins
-        print(f"{bin_edge:.2f} - {bin_edge + bin_width:.2f} | {'#' * int(50 * count / total)} ({count})")
+        print(
+            f"{bin_edge:.2f} - {bin_edge + bin_width:.2f} | {'#' * int(50 * count / total)} ({count})"
+        )
     print("\nStatistics Table:")
     print("Range\t\t\tCount\tPercentage")
     for count, bin_edge in zip(counts, bins):
@@ -142,9 +150,13 @@ def main():
                 results[offset_batch:offset_batch + args.batch_size] = weights
                 batch_nr += 1
             if not args.nostats:
-                # Print normalised weights
-                print_stats(weights/100)
-                #print_stats(weights / np.max(weights))
+                print_stats(
+                    filepath=os.path.join(
+                    args.output_folder, filename.replace(".memmap", "_weights.memmap")
+                    ),
+                    num_bins=10,
+                    weight_scale_factor=0.01,
+                )
 
 if __name__ == "__main__":
     main()
