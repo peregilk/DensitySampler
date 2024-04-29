@@ -21,7 +21,9 @@ main/
 |-- final/
 ```
 
-The first part creates embeddings. Currently it uses `sentence-transformers/all-MiniLM-L6-v2` that creates 384-dimentional multilingual embeddings. This can be replaced with any other encoder-model from HuggingFace. The default model is using L2 normalising on the embeddings already, so we can save these directly to normalised_embeddings/. It reads the text-field of the jsonlines-file. If your corpus is in parque, please use the `first. This often takes hours to run even on fast computers. It works on single files, so that it can be easily paralellised. 
+The first part creates embeddings. Currently it uses `sentence-transformers/all-MiniLM-L6-v2` that creates 384-dimentional multilingual embeddings. This can be replaced with any other encoder-model from HuggingFace. The default model is using L2 normalising on the embeddings already, so we can save these directly to `normalised_embeddings/`. The script reads the text-field of the jsonlines-file. If your corpus is in parque, please use the `convert_parquet_to_jsonlines.py` first. 
+
+Not that this script takes quite a long time to run even on fast computers. It works on single files, so that it can be easily paralellised. 
 
 ```
 python create_embeddings.py --input_file myfile.jsonl --paths_dir paths --embeddings_dir normalised_embeddings --emb_size 384
