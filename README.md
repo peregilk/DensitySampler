@@ -27,16 +27,17 @@ The first part creates embeddings. Currently it uses `sentence-transformers/all-
 Not that this script takes quite a long time to run even on fast computers. It works on single files, so that it can be easily paralellised. 
 
 ```
-python create_embeddings.py --input_file myfile.jsonl --paths_dir paths --embeddings_dir normalised_embeddings --emb_size 384
+python create_embeddings.py --input_file myfile.jsonl --paths_dir paths --embeddings_dir embeddings --emb_size 384
 ```
 
-Optionally, you would run the following script to apply L2 normalisation. With the default model, this is already done, so you can skip this step.
+Note that for the default model the embeddings are already normalised. If you need to use another model that does not normalise the output, please use the script `create_normalised_embeddings.py`.
+
+The next step is to create the density scores. This script should take roughly an hour per GB of data.
 
 ```
-python create_normalised_embeddings.py --input_folder embeddings --output_folder normalised_embeddings --emb_size 384
+python create_density_scores.py --embedding_input_folder embeddings --json_output_folder nonormalised_density_scores --nonormalise
 ```
 
-Then run the main script. This will produce a new jsonlines file identical to the original we started with except that it has an extra field called `density_probabiliy`. You will have to at least adjust the `kernel_bandwidth` here.  
 
 
 TODO: 
