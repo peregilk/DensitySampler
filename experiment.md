@@ -4,7 +4,7 @@ This description contains direct references to files and folders in my local env
 I am creating a corpus from: `/mnt/lv_ai_2_ficino/perk/NCC_plus_scandi/`. The actual data is in `/mnt/lv_ai_2_ficino/perk/NCC_plus_scandi/data/`, and the memmap of the embeddings are already in `/mnt/lv_ai_2_ficino/perk/NCC_plus_scandi/embeddings/`.
 
 ## Create Density Scores
-First create non-normalised density scores in `/mnt/lv_ai_2_ficino/perk/NCC_plus_scandi/nonormalised_density_scores` (takes around an hour):
+First create non-normalised density scores in `/mnt/lv_ai_2_ficino/perk/NCC_plus_scandi/nonormalised_density_scores` (This takes around 1 + 8 hours = 9 hours on Ficino):
 
 ```
 python create_density_scores.py --embedding_input_folder /mnt/lv_ai_2_ficino/perk/NCC_plus_scandi/embeddings --nonormalise
