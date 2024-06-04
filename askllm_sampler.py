@@ -45,7 +45,7 @@ safety_settings = [
 ]
 
 model = genai.GenerativeModel(
-    model_name="gemini-1.5-pro",
+    model_name="gemini-1.5-flash",
     safety_settings=safety_settings,
     generation_config=generation_config,
 )
@@ -105,6 +105,7 @@ def process_json_lines(json_lines_file, num_examples, max_requests_per_minute, l
 
                 if processed % max_requests_per_minute == 0:
                     logging.debug(f"Processed {processed} entries. Waiting for a minute to respect rate limit.")
+                    print("Sleeping for 60 seconds")
                     time.sleep(60)  # Wait for a minute to respect rate limit
             except Exception as e:
                 logging.error(f"An error occurred while processing line {idx+1}: {e}")
@@ -120,7 +121,7 @@ def main():
     parser.add_argument('--json_lines_file', type=str, required=True, help='Path to the JSONLines file.')
     parser.add_argument('--num_examples', type=int, default=100, help='Number of requests to process (default: 100).')
     parser.add_argument('--max_requests_per_minute', type=int, default=15, help='Maximum number of requests per minute (default: 15).')
-    parser.add_argument('--language', type=str, choices=['en', 'sv', 'nb', 'nn'], default='en', help='Language for the prompt (default: en).')
+    parser.add_argument('--language', type=str, choices=['en', 'sv', 'da', 'nb', 'nn'], default='en', help='Language for the prompt (default: en).')
     parser.add_argument('--text_field', type=str, default='text', help='Field in JSON lines containing the text (default: content).')
     parser.add_argument('--verbose', action='store_true', help='Enable verbose logging.')
 
