@@ -57,6 +57,7 @@ def process_batch(chat_session, chat_prompt, batch, text_field):
         prompt = chat_prompt.format(content=input_text)
         response = chat_session.send_message(prompt)
         responses.append((line, response))
+        time.sleep(2)  # Wait for 2 seconds between each request
     return responses
 
 def process_json_lines(json_lines_file, output_file, num_examples, max_requests_per_minute, batch_size, language, text_field, verbose):
